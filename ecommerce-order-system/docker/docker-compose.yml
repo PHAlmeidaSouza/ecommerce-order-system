@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:13.4-buster
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=Kaliware@042
+      - POSTGRES_DB=kaliware
+      - PGDATA=/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
