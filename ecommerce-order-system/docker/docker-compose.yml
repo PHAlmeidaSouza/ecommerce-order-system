@@ -4,10 +4,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=Kaliware@042
-      - POSTGRES_DB=kaliware
-      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ecommerce
     ports:
-      - 5433:5432
-    volumes:
-      - ./data:/var/lib/postgresql/data
+      - 5432:5432
