@@ -8,3 +8,13 @@ services:
       - POSTGRES_DB=ecommerce
     ports:
       - 5432:5432
+
+  activemq:
+    image: rmohr/activemq:5.15.9
+    restart: always
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+    ports:
+      - 61616:61616
+      - 8161:8161

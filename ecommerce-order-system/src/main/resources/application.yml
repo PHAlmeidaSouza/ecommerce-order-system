@@ -15,6 +15,24 @@ spring:
     init:
       mode: always
 
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    in-memory: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ph8584777@gmail.com
+    password: ijpp yzee dwpz chvu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 jwt:
   public:
     key: classpath:mynewpublickey.pem

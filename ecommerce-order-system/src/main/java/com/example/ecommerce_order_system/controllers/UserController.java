@@ -3,6 +3,7 @@ package com.example.ecommerce_order_system.controllers;
 import com.example.ecommerce_order_system.controllers.dto.CreateUserDto;
 import com.example.ecommerce_order_system.entities.Role;
 import com.example.ecommerce_order_system.entities.User;
+import com.example.ecommerce_order_system.producer.JmsProducerService;
 import com.example.ecommerce_order_system.repositories.RoleRepository;
 import com.example.ecommerce_order_system.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,13 @@ public class UserController {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JmsProducerService jmsProducerService;
 
-    public UserController(final UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(final UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JmsProducerService jmsProducerService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.jmsProducerService = jmsProducerService;
     }
 
     @Transactional
@@ -49,6 +52,8 @@ public class UserController {
         user.setRoles(Set.of(basicRole));
 
         userRepository.save(user);
+
+        jmsProducerService.sendMessage("user.queue", user.getUsername());
 
         return ResponseEntity.ok().build();
     }
